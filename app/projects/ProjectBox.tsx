@@ -10,6 +10,7 @@ export interface Project {
   image: string;
   tags: string[];
   link?: string;
+  highlight?: boolean;
 }
 
 interface ProjectCardProps {

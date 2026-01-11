@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion";
+import { useRouter, useSearchParams } from "next/navigation";
 import ProjectCard, { Project } from "./ProjectBox";
 import ProjectModal from "./ProjectModel";
 import Base from "./arm-parts/Base";
@@ -10,6 +11,7 @@ import ElbowJoint from "./arm-parts/ElbowJoint";
 import UpperArm from "./arm-parts/UpperArm";
 import WristJoint from "./arm-parts/WristJoint";
 import Gripper from "./arm-parts/Gripper";
+import { PROJECTS } from "../lib/projects";
 
 const projects: Project[] = [
   {
@@ -78,7 +80,16 @@ export default function RoboticArmTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [progress, setProgress] = useState(0);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
+  // open a project based on the ?project=slug query param
+  useEffect(() => {
+    const slug = searchParams?.get("project");
+    if (!slug) return;
+    const p = PROJECTS.find((x) => x.id === slug);
+    if (p) setSelectedProject(p as Project);
+  }, [searchParams]);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -239,7 +250,7 @@ export default function RoboticArmTimeline() {
 
         {/* Project Cards - Along the sides */}
         <div className="relative z-10 pt-[10vh]">
-          {projects.map((project, index) => {
+          {PROJECTS.map((project, index) => {
             const isLeft = index % 2 === 0;
             const projectThreshold = 0.05 + index * 0.15;
 
@@ -257,9 +268,9 @@ export default function RoboticArmTimeline() {
                 >
                   <div className={`max-w-sm ${isLeft ? "ml-4 md:ml-12" : "mr-4 md:mr-12"}`}>
                     <ProjectCard
-                      project={project}
+                      project={project as Project}
                       index={index}
-                      onClick={() => setSelectedProject(project)}
+                      onClick={() => setSelectedProject(project as Project)}
                     />
                   </div>
                 </motion.div>
@@ -284,7 +295,15 @@ export default function RoboticArmTimeline() {
 
       <ProjectModal
         project={selectedProject}
-        onClose={() => setSelectedProject(null)}
+        onClose={() => {
+          setSelectedProject(null);
+          // remove the project query param so closing won't re-open
+          try {
+            router.replace('/projects');
+          } catch (e) {
+            /* ignore */
+          }
+        }}
       />
     </>
   );
