@@ -7,12 +7,16 @@ import Panel from "../components/Panel";
 import Section from "../components/Section";
 import BulletIcon from "../icons/BulletIcon";
 
+import RedText from "../components/RedText";
+
 const tabs = [
   { id: "work", label: "Work" },
   { id: "education", label: "Education" },
 ];
 
 const defaultBadge = "/logo/roverlogo.png";
+
+// <RedText rewardId="hero-red" amount={2.5}>red</RedText>
 
 const EXPERIENCES = [
   {
@@ -21,11 +25,11 @@ const EXPERIENCES = [
     dates: "Dec. 2025 – Present",
     badge: "/logo/conlogo.png", 
     bullets: [
-      "Co-Founded an agentic learning platform, enabling talented individuals to easily monetize their skills",
+      "[[red:exp-1:2.5|Co-Founded]] an [[red:exp-2:2.5|agentic learning platform]], enabling talented individuals to easily monetize their skills",
       "Engineered the backend on n8n cloud, featuring a full threaded, multi-step API/web-scraping agents",
-      "Business model surrounds a commission-based fee of 20% where within 2 days of launch, we received around 230 paying students, 8 instructors, and over 23,000 impressions on our social media platforms",
+      "Business model surrounds a commission-based fee of 20% where within 2 days of launch, we received around [[red:exp-3:2.5|230 paying students]], 8 instructors, and over [[red:exp-4:2.5|23,000 impressions]] on our social media platforms",
       "Receiving guidance and mentorship from Aaron Stuart, CEO of VANTEC Angel Network",
-      "Applying as a venture capital to startup accelerators such as Y Combinator, Techstars, and Google for Startups",
+      "Applying as a venture capital to startup accelerators such as [[red:exp-yc:2.5|Y Combinator]], Techstars, and Google for Startups",
     ],
   },
   {
@@ -34,10 +38,10 @@ const EXPERIENCES = [
     dates: "Sep. 2025 – Present",
     badge: "/logo/roverlogo.png",
     bullets: [
-      "Transformed team workflow by designing a Docker-based pipeline adopted by 40 members, significantly improving collaboration experience for new members",
-      "Leading a four-member team to develop the Reinforcement Learning pipeline, coordinating progress and presenting weekly updates to align the rest of the team with our research and development efforts",
+      "Transformed team workflow by designing a Docker-based pipeline adopted by 40 members, significantly [[red:exp-collab:2.5|improving collaboration]] experience for new members",
+      "Leading a four-member team to develop the [[red:exp-rl:0.5|Reinforcement Learning]] pipeline, coordinating progress and presenting weekly updates to align the rest of the team with our research and development efforts",
       "Managed project timelines, reviewed PRs, and hosted weekly reviews, ensuring transparency and progress",
-      "Worked with the mechanical sub-team to develop a cohesive simulation environment and detailed robotic design mechanics (with modeling capability), achieving an 84% accuracy to the real world",
+      "Worked with the mechanical sub-team to develop a cohesive simulation environment and detailed robotic design mechanics (with modeling capability), achieving an [[red:exp-acc:2.5|84% accuracy]] to the real world",
       "Competing at the University Rover Challenge (URC) and the Canadian International Rover Competition (CIRC) in 2026",
     ],
   },
@@ -45,11 +49,11 @@ const EXPERIENCES = [
     role: "Software Member - Computer Vision & Telemetry",
     company: "UBC ARRC (Engineering Design Team)",
     dates: "Sep. 2024 – Aug. 2025",
-    badge: "/logo/arrclogo.png",
+    badge: "/logo/roverlogo.png",
     bullets: [
-      "Achieved 2nd place at the Aerial Evolution Association of Canada (AEAC) in 2025, demonstrating strong performance against top Canadian universities",
+      "Achieved [[red:exp-second:2.5|2nd place]] at the Aerial Evolution Association of Canada (AEAC) in 2025, demonstrating strong performance against top Canadian universities",
       "Developed an autoencoding denoiser based on the RRDBNet architecture from the ESRGAN framework which enhanced image quality for the DL model below",
-      "Applied transfer learning to the YOLOv8 object detection model to seclude IR emission in a live setting, improving detection accuracy by 27%",
+      "Applied transfer learning to the YOLOv8 object detection model to seclude IR emission in a live setting, improving detection accuracy by [[red:exp-perc:2.5|27%]]",
     ],
   },
 ];
@@ -66,6 +70,34 @@ function mapToExperienceData() {
     })),
     education: [],
   } as const;
+}
+
+// Parse inline tokens of the form [[red:rewardId:amount|display text]] inside quoted strings
+function renderWithRedText(str?: string | null) {
+  if (!str) return null;
+  const re = /\[\[red:([^:|]+)(?::([0-9.]+))?\|([^\]]+)\]\]/g;
+  const parts: (string | React.ReactNode)[] = [];
+  let last = 0;
+  let m: RegExpExecArray | null;
+  let idx = 0;
+
+  // eslint-disable-next-line no-cond-assign
+  while ((m = re.exec(str))) {
+    if (m.index > last) parts.push(str.slice(last, m.index));
+    const id = m[1];
+    const amt = m[2] ? Number(m[2]) : undefined;
+    const text = m[3];
+    parts.push(
+      <RedText key={`${id}-${idx}`} rewardId={id} amount={amt}>
+        {text}
+      </RedText>,
+    );
+    last = re.lastIndex;
+    idx++;
+  }
+
+  if (last < str.length) parts.push(str.slice(last));
+  return parts.length === 1 ? parts[0] : parts;
 }
 
 function TimelineItem({ item }: { item: any }) {
@@ -103,7 +135,7 @@ function TimelineItem({ item }: { item: any }) {
               <BulletIcon className="text-highlight-color h-2 w-2 shrink-0" />
               <div className="space-y-0">
                 <p className="text-body-text text-sm leading-tight sm:text-base">
-                  {highlight.text}
+                  {renderWithRedText(highlight.text)}
                 </p>
                 {highlight.note && (
                   <p className="text-xs text-gray-400 sm:text-sm">{highlight.note}</p>

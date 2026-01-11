@@ -22,7 +22,8 @@ export default function RedText({
   const claimed = hasAward(rewardId);
   const [popping, setPopping] = useState(false);
 
-  const weightOverride = weight === "semibold" ? "!font-semibold" : "";
+  // determine visual weight/color depending on claimed state
+  const weightClass = claimed ? "font-normal" : weight === "semibold" ? "!font-semibold" : "font-bold";
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -39,7 +40,7 @@ export default function RedText({
     <>
       <span
         onClick={handleClick}
-        className={` ${claimed ? "text-highlight-color/60 cursor-default dark:opacity-100" : "cursor-pointer"} custom-bold text-highlight-color ${weightOverride} ${popping ? "pop" : ""} ${className} inline-block`}
+        className={` ${claimed ? "text-highlight-color/60 cursor-default dark:opacity-100" : "cursor-pointer text-highlight-color"} custom-bold ${weightClass} ${popping ? "pop" : ""} ${className} inline-block`}
         role="button"
         aria-pressed={claimed}
         data-reward-click

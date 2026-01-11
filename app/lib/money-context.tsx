@@ -150,6 +150,13 @@ export function MoneyProvider({ children }: { children: React.ReactNode }) {
     // emulate lever pull event for demonstration
     setLeverPullTick((t) => t + 1);
 
+    // show header briefly when an award is claimed (simulate user scrolling up)
+    try {
+      if (typeof window !== "undefined") window.dispatchEvent(new CustomEvent("reward:showHeader"));
+    } catch (e) {
+      /* ignore */
+    }
+
     return true;
   };
 

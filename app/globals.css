@@ -16,7 +16,28 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --highlight: #ff6b6b; /* slightly lighter in dark mode */
+    --highlight-rgb: 255 107 107;
   }
+}
+
+/* Highlight color token and utility classes */
+:root {
+  --highlight: #ef4444; /* Tailwind red-500 */
+  --highlight-rgb: 239 68 68;
+}
+
+.text-highlight-color {
+  color: var(--highlight) !important;
+}
+
+/* Matching Tailwind-like opacity utility class name (contains slash) */
+.text-highlight-color\/60 {
+  color: rgba(var(--highlight-rgb), 0.6) !important;
+}
+
+.bg-highlight-color {
+  background-color: var(--highlight) !important;
 }
 
 body {

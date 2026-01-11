@@ -20,6 +20,17 @@ export default function Header() {
   const HIDE_AFTER_DOWN_PX = 40;   // how much downward scroll triggers hiding
   const ALWAYS_SHOW_BELOW_PX = 10; // near top of page, always show
 
+  // Listen for reward events and bring header into view (simulate scroll-up)
+  useEffect(() => {
+    const handler = () => {
+      accumulatedUp.current = 0;
+      accumulatedDown.current = 0;
+      setVisible(true);
+    };
+    window.addEventListener("reward:showHeader", handler);
+    return () => window.removeEventListener("reward:showHeader", handler);
+  }, []);
+
   useMotionValueEvent(scrollY, "change", (y) => {
     const prev = lastY.current;
     const delta = y - prev;
@@ -63,31 +74,29 @@ export default function Header() {
       transition={{ duration: 0.25, ease: "easeOut" }}
       className="fixed left-0 right-0 top-0 z-50 flex justify-center"
     >
-      <div className="w-full max-w-5xl rounded-b-2xl rounded-t-none border-x border-b border-white/60 border-t-0 bg-transparent">
+      <div className="w-full max-w-5xl rounded-b-2xl rounded-t-none border-x border-b border-white/60 border-t-0 bg-[var(--background)]">
         <div className="flex items-center justify-between px-6 py-4 text-white">
-          <div className="flex items-center gap-6">
-            <div className="font-semibold">Aaron Rhim</div>
-            <nav className="flex gap-6 text-sm text-white/80">
-              <a href="/" className="hover:text-white">
-                Home
-              </a>
-              <a href="/projects" className="hover:text-white">
-                Projects
-              </a>
-              <a href="/motion-demo" className="hover:text-white">
-                Demo
-              </a>
-            </nav>
-          </div>
 
-          <div className="flex items-center gap-4">
-            <div className="text-sm text-white/70">Balance</div>
-            <AnimatedBalance value={money.balance} />
+          <div className="flex items-center w-full">
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-4">
+                <div className="text-sm text-white/70">Balance</div>
+                <AnimatedBalance value={money.balance} />
 
-            <div className="hidden sm:flex items-center gap-2 ml-4">
-              <div className="text-sm text-white/70">Found</div>
-              <div className="text-sm text-white/90 font-medium">{money.claimedCount}</div>
+                <div className="hidden sm:flex items-center gap-2 ml-4">
+                  <div className="text-sm text-white/70">Found</div>
+                  <div className="text-sm text-white/90 font-medium">
+                    {money.claimedCount}
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <nav className="ml-auto flex gap-6 text-sm text-white/80">
+              <a href="/" className="hover:text-white">Home</a>
+              <a href="/projects" className="hover:text-white">Projects</a>
+              <a href="/motion-demo" className="hover:text-white">Demo</a>
+            </nav>
           </div>
         </div>
       </div>
