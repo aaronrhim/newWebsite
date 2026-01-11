@@ -34,3 +34,26 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+---
+
+## Supabase: RedText persistence (optional)
+
+This project supports persisting claimed "red text" rewards to Supabase.
+
+1. Add these env vars to `.env.local` (server-only):
+
+   - `SUPABASE_URL` (your Supabase project URL)
+   - `SUPABASE_KEY` (a service role or server key; keep it secret)
+
+2. Create a table named `redtext_claims` with a simple schema:
+
+   - `reward_id` TEXT PRIMARY KEY
+   - `claimed` BOOLEAN DEFAULT TRUE
+   - `amount` NUMERIC DEFAULT 0.25
+   - `updated_at` TIMESTAMP
+
+3. Run `npm install` to add the Supabase client (we add `@supabase/supabase-js`).
+
+At runtime, `MoneyProvider` will load claims from `/api/redtext` and persist claims when a user clicks a `RedText` reward.
+

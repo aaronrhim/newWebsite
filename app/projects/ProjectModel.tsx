@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ExternalLink, Github } from "lucide-react";
 import { Project } from "./ProjectBox";
+import { useMoney } from "../lib/money-context";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -10,7 +11,24 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+  const { awardOnce, hasAward } = useMoney();
+
   if (!project) return null;
+
+  const handleView = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    awardOnce(`project-view-${project.id}`, "external", 0.5);
+    if (project.link && project.link !== "#") window.open(project.link, "_blank");
+  };
+
+  const handleCode = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    awardOnce(`project-code-${project.id}`, "external", 0.25);
+    if (project.link && project.link !== "#") window.open(project.link, "_blank");
+  };
+
+  const viewClaimed = hasAward(`project-view-${project.id}`);
+  const codeClaimed = hasAward(`project-code-${project.id}`);
 
   return (
     <AnimatePresence>
@@ -95,11 +113,25 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
                   {/* Action buttons */}
                   <div className="flex gap-4">
-                    <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
+                    <button
+                      onClick={handleView}
+                      data-reward-id={`project-view-${project.id}`}
+                      data-reward-amount={0.5}
+                      className={`flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium transition-opacity ${
+                        viewClaimed ? "bg-muted text-white/70 cursor-default" : "bg-primary text-primary-foreground hover:opacity-90"
+                      }`}
+                    >
                       <ExternalLink className="w-4 h-4" />
                       View Project
                     </button>
-                    <button className="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-secondary text-secondary-foreground font-medium border border-border hover:bg-muted transition-colors">
+                    <button
+                      onClick={handleCode}
+                      data-reward-id={`project-code-${project.id}`}
+                      data-reward-amount={0.25}
+                      className={`flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium border transition-colors ${
+                        codeClaimed ? "bg-muted text-white/70 cursor-default" : "bg-secondary text-secondary-foreground border-border hover:bg-muted"
+                      }`}
+                    >
                       <Github className="w-4 h-4" />
                       Code
                     </button>

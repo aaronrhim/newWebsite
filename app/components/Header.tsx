@@ -2,9 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import AnimatedBalance from "./AnimatedBalance";
+import { useMoney } from "../lib/money-context";
 
 export default function Header() {
   const { scrollY } = useScroll();
+  const money = useMoney();
 
   const lastY = useRef(0);
   const accumulatedUp = useRef(0);
@@ -62,18 +65,30 @@ export default function Header() {
     >
       <div className="w-full max-w-5xl rounded-b-2xl rounded-t-none border-x border-b border-white/60 border-t-0 bg-transparent">
         <div className="flex items-center justify-between px-6 py-4 text-white">
-          <div className="font-semibold">Aaron Rhim</div>
-          <nav className="flex gap-6 text-sm text-white/80">
-            <a href="/" className="hover:text-white">
-              Home
-            </a>
-            <a href="/projects" className="hover:text-white">
-              Projects
-            </a>
-            <a href="/motion-demo" className="hover:text-white">
-              Demo
-            </a>
-          </nav>
+          <div className="flex items-center gap-6">
+            <div className="font-semibold">Aaron Rhim</div>
+            <nav className="flex gap-6 text-sm text-white/80">
+              <a href="/" className="hover:text-white">
+                Home
+              </a>
+              <a href="/projects" className="hover:text-white">
+                Projects
+              </a>
+              <a href="/motion-demo" className="hover:text-white">
+                Demo
+              </a>
+            </nav>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <div className="text-sm text-white/70">Balance</div>
+            <AnimatedBalance value={money.balance} />
+
+            <div className="hidden sm:flex items-center gap-2 ml-4">
+              <div className="text-sm text-white/70">Found</div>
+              <div className="text-sm text-white/90 font-medium">{money.claimedCount}</div>
+            </div>
+          </div>
         </div>
       </div>
     </motion.header>

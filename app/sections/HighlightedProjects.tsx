@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Panel from "../components/Panel";
 import Section from "../components/Section";
@@ -17,11 +19,26 @@ const PROJECTS = [
   },
 ];
 
+import { useMoney } from "../lib/money-context";
+
 function ProjectCard(p: (typeof PROJECTS)[number]) {
+  const { awardOnce, hasAward } = useMoney();
+  const rewardId = `project-${p.slug}`;
+  const claimed = hasAward(rewardId);
+
   return (
     <Link
       href={`/projects/${p.slug}`}
-      className="group block rounded-2xl border border-white/10 bg-white/5 p-5 hover:border-white/30"
+      onClick={(e) => {
+        e.stopPropagation();
+        // award on project click (best-effort)
+        awardOnce(rewardId, "project", 0.5);
+      }}
+      data-reward-id={rewardId}
+      data-reward-amount={0.5}
+      className={`group block rounded-2xl border border-white/10 bg-white/5 p-5 hover:border-white/30 ${
+        claimed ? "opacity-60 cursor-default" : ""
+      }`}
     >
       <div className="text-white text-lg font-semibold group-hover:text-white">
         {p.name}
