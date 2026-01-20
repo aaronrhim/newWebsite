@@ -36,7 +36,7 @@ export const PROJECTS = [
     id: "engine",
     title: "3D Simulation Engine",
     description: "Built a custom knock-off matlab with movement mechanics all in Java.",
-    longDescription: "A physics engine built from scratch in Java that simulates scalar fields and has the capability to visualize Machine Learning algorithms and functions.",
+    longDescription: "I built a physics engine built from scratch in Java that simulates scalar fields and has the capability to visualize Machine Learning algorithms and functions. This application will allow users to input a scalar field (xy function wrt z) and visualize multiple ML algorithms in a 3D space. I implemented a camera controller after taking MATH 200 (Multivariable Calculus) and multithreading (simple concurrency) after taking CPSC 313 (Computer Hardware and Operating Systems).",
     features: ["Custom Physics implementation", "Custom virtualization & rasterization", "Visualize gradient descent", "Visualize K-Nearest Neighbobrs"],
     image: "/images/thumbnails/3dengine.png",
     tags: ["Java"],
@@ -59,20 +59,25 @@ export const PROJECTS = [
     id: "rememberme",
     title: "Remember Me",
     description: "AI-powered platform enabling users to practice both behavioral and technical interviews, delivering generative prompts, realistic feedback, and automated scoring.",
-    longDescription: ".",
-    features: [""],
+    longDescription: "Started off as an idea to \"screw over meta glasses,\" we quickly realized that was a huge goal. We created an attachable memory aid for Alzheimers' patients so that they can remember their loved ones. All you need to do is simply attach it to your glasses, get your family to set it up with detailed instructions, and it will start capturing your memories and familiars right there! The backend uses AWS Rekognition to recognize passerbyes in which we made it so that the attachment will announce the familiar's name when the patient walks near.",
+    features: ["AWS Rekognition for facial recognition", "ElevenLabs for natural text-to-speech", "OpenAI API for memory summarization", "ExpoGo for cross-platform mobile app"],
     image: "/images/thumbnails/rememberme.png",
     tags: ["ExpoGo", "React Native", "Firebase", "ElevenLabs", "OpenAI API", "AWS Rekognition", "AWS S3", "DynamoDB"],
     links: [
-
         {
             url: "https://www.youtube.com/watch?v=H-2SR8Qk0QQ&t=3s",
             type: "website",
             label: "Live Demo"
         },
+        {
+            url: "https://github.com/R0yZh3ng/CIC-GenAI-Hackathon",
+            type: "github",
+            label: "Source Code"
+        },
     ],
     highlight: false,
     gallery: [
+      "/images/rememberme3.png",
       "/images/rememberme1.png",
       "/images/rememberme2.png"
     ],
