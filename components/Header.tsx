@@ -80,7 +80,7 @@ export default function Header() {
           <div className="flex items-center w-full">
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-4">
-                <div className="text-sm text-white/70">Balance</div>
+                <div className="text-base font-bold tracking-tight text-white/90">Balance</div>
                 <div className="flex items-center gap-0.5 font-mono text-xl font-bold tabular-nums tracking-tight text-white relative">
                    <span className="text-emerald-400 select-none">$</span>
                    <AnimatedBalance value={money.balance} />
@@ -89,7 +89,7 @@ export default function Header() {
               </div>
             </div>
 
-            <nav className="ml-auto flex gap-6 text-lg font-bold tracking-tight text-white/90">
+            <nav className="ml-auto flex gap-6 text-base font-bold tracking-tight text-white/90">
               <a href="/" className="hover:text-white transition-colors">Home</a>
               <a href="/about" className="hover:text-white transition-colors">About Me</a>
               <a href="/projects" className="hover:text-white transition-colors">Projects</a>
