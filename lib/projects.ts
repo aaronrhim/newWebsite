@@ -49,8 +49,87 @@ export const PROJECTS = [
     ],
     highlight: true,
     gallery: [
-      "/images/cpsc210.png",
-      "https://images.unsplash.com/photo-1550439062-609e1531270e?w=800&q=80"
+      "/images/cpsc210.png"
+    ],
+    extendingImages: [
+      "/images/cpsc210.png"
+    ],
+  },
+  {
+    id: "rememberme",
+    title: "Remember Me",
+    description: "AI-powered platform enabling users to practice both behavioral and technical interviews, delivering generative prompts, realistic feedback, and automated scoring.",
+    longDescription: ".",
+    features: [""],
+    image: "/images/thumbnails/rememberme.png",
+    tags: ["ExpoGo", "React Native", "Firebase", "ElevenLabs", "OpenAI API", "AWS Rekognition", "AWS S3", "DynamoDB"],
+    links: [
+
+        {
+            url: "https://www.youtube.com/watch?v=H-2SR8Qk0QQ&t=3s",
+            type: "website",
+            label: "Live Demo"
+        },
+    ],
+    highlight: false,
+    gallery: [
+      "/images/rememberme1.png",
+      "/images/rememberme2.png"
+    ],
+    extendingImages: [
+      "/images/rememberme1.png",
+      "/images/rememberme2.png"
+    ],
+  },
+  {
+    id: "grannyai",
+    title: "Granny AI",
+    description: "An agent that helps your grandma navigate her technology.",
+    longDescription: "Built as an Electron app, we created a workflow that allowed ElevenLabs and Gemini to control your mouse and navigate your computer. It was initially designed to only have those campabilities but due to some really bad buffering, we had to switch to using a combination of playwright and Gemini to give the AI access to mode features (opening apps and accessing websites) at the cost of full mouse movement/usage.",
+    features: ["Agentic Workflow with ElevenLabs and Gemini", "Electron App for cross-platform compatibility", "Playwright for web navigation", "Text-to-Speech with ElevenLabs"],
+    image: "/images/thumbnails/grandbuddy.png",
+    tags: ["Gemini API", "ElevenLabs", "Playwright", "Electron", "React", "Bun", "TypeScript", "Vercel", "SocketIO"],
+    links: [
+        {
+            url: "https://github.com/Alhwyn/nw-hacks-sub",
+            type: "github",
+            label: "Source Code"
+        },
+        {
+          url: "https://www.youtube.com/watch?v=0IL0ZjVr7gI",
+          type: "website",
+          label: "Live Demo"
+        }
+    ],
+    highlight: false,
+    gallery: [
+      "/images/granny1.png",
+      "/images/granny2.png",
+      "/images/granny3.png"
+    ],
+    extendingImages: [
+      "/images/granny1.png",
+      "/images/granny2.png"
+    ],
+  },
+  {
+    id: "lecruiter",
+    title: "LeCruiter AI",
+    description: "AI-powered platform enabling users to practice both behavioral and technical interviews, delivering generative prompts, realistic feedback, and automated scoring.",
+    longDescription: ".",
+    features: [""],
+    image: "/images/thumbnails/lecruiter.png",
+    tags: ["React", "TailwindCSS", "AWS Bedrock", "Python", "FastAPI"],
+    links: [
+        {
+            url: "https://github.com/R0yZh3ng/CIC-GenAI-Hackathon",
+            type: "github",
+            label: "Source Code"
+        },
+    ],
+    highlight: false,
+    gallery: [
+      "/images/cpsc210.png"
     ],
     extendingImages: [
       "/images/cpsc210.png"
