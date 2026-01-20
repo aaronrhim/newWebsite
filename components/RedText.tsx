@@ -33,6 +33,11 @@ export default function RedText({
       setPopping(false);
       requestAnimationFrame(() => setPopping(true));
       setTimeout(() => setPopping(false), 200);
+
+      // Trigger global reward animation
+      window.dispatchEvent(
+        new CustomEvent("reward:earned", { detail: { amount } })
+      );
     }
   };
 
@@ -40,7 +45,11 @@ export default function RedText({
     <>
       <span
         onClick={handleClick}
-        className={` ${claimed ? "text-highlight-color/60 cursor-default dark:opacity-100" : "cursor-pointer text-highlight-color"} custom-bold ${weightClass} ${popping ? "pop" : ""} ${className} inline-block`}
+        className={` ${
+          claimed
+            ? "text-red-800/50 cursor-default dark:text-red-500/40"
+            : "cursor-pointer text-highlight-color"
+        } custom-bold ${weightClass} ${popping ? "pop" : ""} ${className} inline-block transition-colors duration-500`}
         role="button"
         aria-pressed={claimed}
         data-reward-click

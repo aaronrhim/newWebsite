@@ -1,38 +1,6 @@
 // types: website, github
 export const PROJECTS = [
   {
-    id: "connections",
-    title: "Connections",
-    description: "Co-Founded and built an event management and community-building platform aimed to help people monetize their skills.",
-    longDescription:
-      "Connections makes it easy for anyone to turn their hobbies, talents, or skills into money. Our platform allows general tutors to build and teach local student communities, without the burden of organizing events, marketing, or financials. Anyone who wants to learn can come to our platform to find groups with similar interests. Together, they can either find someone to learn from or wait for a tutor to approach them and learn together. We offer automation features that can help tutors to plan their workshops which gives them the freedom to bond with student groups and focus on teaching. Finding students is one of the biggest hurdles for tutors and takes a lot of time so, our solution is to facilitate learning communities and automate all of the planning steps to give tutors back their time.",
-    features: [
-      "Persona-based progress and onboarding",
-      "Event-driven agent workflows",
-      "Instructor monetization and revenue shares",
-      "Fast, local-first performance for course interactions",
-    ],
-    image: "/images/thumbnails/connectionsthumbnail.png",
-    tags: ["Many APIs", "Next.js", "TypeScript", "React", "Supabase", "Vercel", "Render"],
-    links: [
-        {
-            url: "https://www.connectionsforcommunity.org",
-            type: "website",
-            label: "Live Site"
-        },
-    ],
-    highlight: true,
-    gallery: [
-      "/images/connectionsteam.jpeg", 
-      "/images/connectionsworkflow.png",
-      "/images/kickstart.png"
-    ],
-    extendingImages: [
-      "/images/connectionsteam.jpeg",
-      "/images/kickstart.png"
-    ],
-  },
-  {
     id: "engine",
     title: "3D Simulation Engine",
     description: "Built a custom knock-off matlab with movement mechanics all in Java.",
@@ -58,7 +26,7 @@ export const PROJECTS = [
   {
     id: "rememberme",
     title: "Remember Me",
-    description: "AI-powered platform enabling users to practice both behavioral and technical interviews, delivering generative prompts, realistic feedback, and automated scoring.",
+    description: "Attachable AI-powered camera and speaking memory aid for Alzheimers' patients.",
     longDescription: "Started off as an idea to \"screw over meta glasses,\" we quickly realized that was a huge goal. We created an attachable memory aid for Alzheimers' patients so that they can remember their loved ones. All you need to do is simply attach it to your glasses, get your family to set it up with detailed instructions, and it will start capturing your memories and familiars right there! The backend uses AWS Rekognition to recognize passerbyes in which we made it so that the attachment will announce the familiar's name when the patient walks near.",
     features: ["AWS Rekognition for facial recognition", "ElevenLabs for natural text-to-speech", "OpenAI API for memory summarization", "ExpoGo for cross-platform mobile app"],
     image: "/images/thumbnails/rememberme.png",
@@ -70,12 +38,12 @@ export const PROJECTS = [
             label: "Live Demo"
         },
         {
-            url: "https://github.com/R0yZh3ng/CIC-GenAI-Hackathon",
+            url: "https://github.com/LeCruitUsPls/AlzheimerCamera",
             type: "github",
             label: "Source Code"
         },
     ],
-    highlight: false,
+    highlight: true,
     gallery: [
       "/images/rememberme3.png",
       "/images/rememberme1.png",

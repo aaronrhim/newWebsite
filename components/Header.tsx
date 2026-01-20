@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import AnimatedBalance from "@/components/AnimatedBalance";
 import { useMoney } from "@/lib/money-context";
 
@@ -81,26 +81,63 @@ export default function Header() {
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-4">
                 <div className="text-sm text-white/70">Balance</div>
-                <AnimatedBalance value={money.balance} />
-
-                <div className="hidden sm:flex items-center gap-2 ml-4">
-                  <div className="text-sm text-white/70">Found</div>
-                  <div className="text-sm text-white/90 font-medium">
-                    {money.claimedCount}
-                  </div>
+                <div className="flex items-center gap-0.5 font-mono text-xl font-bold tabular-nums tracking-tight text-white relative">
+                   <span className="text-emerald-400 select-none">$</span>
+                   <AnimatedBalance value={money.balance} />
+                   <RewardPopup />
                 </div>
               </div>
             </div>
 
-            <nav className="ml-auto flex gap-6 text-sm text-white/80">
-              <a href="/" className="hover:text-white">Home</a>
-              <a href="/about" className="hover:text-white">About Me</a>
-              <a href="/projects" className="hover:text-white">Projects</a>
-              <a href="/resume" className="hover:text-white">Resume</a>
+            <nav className="ml-auto flex gap-6 text-lg font-bold tracking-tight text-white/90">
+              <a href="/" className="hover:text-white transition-colors">Home</a>
+              <a href="/about" className="hover:text-white transition-colors">About Me</a>
+              <a href="/projects" className="hover:text-white transition-colors">Projects</a>
+              <a href="/resume" className="hover:text-white transition-colors">Resume</a>
             </nav>
           </div>
         </div>
       </div>
     </motion.header>
+  );
+}
+
+function RewardPopup() {
+  const [rewards, setRewards] = useState<{ id: number; amount: number }[]>([]);
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const customEvent = e as CustomEvent<{ amount: number }>;
+      const amount = customEvent.detail?.amount || 0;
+      const id = Date.now() + Math.random();
+      setRewards((prev) => [...prev, { id, amount }]);
+      
+      // Remove after animation
+      setTimeout(() => {
+        setRewards((prev) => prev.filter((r) => r.id !== id));
+      }, 1500);
+    };
+
+    window.addEventListener("reward:earned", handler);
+    return () => window.removeEventListener("reward:earned", handler);
+  }, []);
+
+  return (
+    <div className="absolute left-full ml-4 top-1/2 -translate-y-1/2 w-0 h-0 overflow-visible pointer-events-none">
+      <AnimatePresence>
+        {rewards.map((r) => (
+           <motion.div
+             key={r.id}
+             initial={{ opacity: 0, y: 0, x: 0, scale: 0.5 }}
+             animate={{ opacity: 1, y: -25, x: 10, scale: 1.2 }}
+             exit={{ opacity: 0, y: -40, x: 15 }}
+             transition={{ duration: 0.8, ease: "easeOut" }}
+             className="absolute left-0 top-0 text-emerald-400 font-bold text-lg select-none whitespace-nowrap drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
+           >
+             +{r.amount.toFixed(2)}
+           </motion.div>
+        ))}
+      </AnimatePresence>
+    </div>
   );
 }

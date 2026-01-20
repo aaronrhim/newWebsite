@@ -43,7 +43,8 @@ export default function ExperienceCard({ experience, onClick, index }: Experienc
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
       onClick={onClick}
-      className="group relative w-full cursor-pointer h-full"
+      style={{ zIndex: 40 - index }}
+      className="group relative w-full cursor-pointer h-full hover:!z-50 transition-all duration-300"
     >
       {/* Extending Images - Distributed Left and Right */}
       {experience.extendingImages && experience.extendingImages.map((src, idx) => {
@@ -87,81 +88,90 @@ export default function ExperienceCard({ experience, onClick, index }: Experienc
         );
       })}
 
-      <div className="relative z-10 h-full overflow-hidden rounded-xl border border-white/10 bg-card/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-card/20 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
+      <div className="relative z-10 w-full overflow-hidden rounded-xl border border-white/10 bg-card/10 p-0 backdrop-blur-sm transition-all duration-300 hover:bg-card/20 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
          
-         {/* Thumbnail Background (Subtle Overlay) */}
-         {/* We reverted the split layout, so we put the thumbnail in the background again but cleaner */}
-         {experience.thumbnail && (
-            <div className="absolute inset-0 z-0 opacity-10 group-hover:opacity-20 transition-opacity duration-700">
-               <Image 
-                 src={experience.thumbnail} 
-                 alt="" 
-                 fill 
-                 className="object-cover blur-[2px] scale-105" 
-               />
-               <div className="absolute inset-0 bg-black/50" /> 
+        <div className={`flex flex-col md:flex-row min-h-[250px] ${!isEven ? 'md:flex-row-reverse' : ''}`}>
+             
+            {/* Thumbnail Section */}
+            <div className="relative w-full md:w-[40%] h-48 md:h-auto overflow-hidden group-hover:brightness-110 transition-all duration-500">
+                {experience.thumbnail ? (
+                    <Image 
+                        src={experience.thumbnail} 
+                        alt={experience.company} 
+                        fill 
+                        className="object-cover transition-transform duration-700 group-hover:scale-105" 
+                    />
+                ) : (
+                    <div className="w-full h-full bg-white/5 flex items-center justify-center">
+                        <Image src={experience.badge} alt="" width={64} height={64} className="opacity-20 grayscale" />
+                    </div>
+                )}
+                {/* Gradient overlay for text legibility if needed, or style transition */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent md:bg-transparent" />
+                <div className={`absolute inset-0 pointer-events-none md:bg-gradient-to-r ${isEven ? 'from-transparent to-[#0a0a0a]/80' : 'from-[#0a0a0a]/80 to-transparent'} opacity-0 md:opacity-100 hidden md:block`} />
             </div>
-         )}
          
-        <div className="relative z-10 flex flex-col h-full gap-5">
-          {/* Header: Logo & Role */}
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl bg-white/5 p-2 border border-white/10">
-                <Image
-                  src={experience.badge}
-                  alt={experience.company}
-                  fill
-                  className="object-contain p-1"
-                />
-              </div>
-              <div>
-                <h3 className="text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                  {experience.role}
-                </h3>
-                <div className="flex items-center gap-2 mt-1">
-                    <span className="text-base font-medium text-white/80">{experience.company}</span>
+            {/* Content Section */}
+            <div className="relative z-10 flex-1 flex flex-col justify-center gap-4 p-6 md:p-8">
+                {/* Header: Logo & Role */}
+                <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-center gap-4">
+                    <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl bg-white/5 p-2 border border-white/10">
+                        <Image
+                        src={experience.badge}
+                        alt={experience.company}
+                        fill
+                        className="object-contain p-1"
+                        />
+                    </div>
+                    <div>
+                        <h3 className="text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
+                        {experience.role}
+                        </h3>
+                        <div className="flex items-center gap-2 mt-1">
+                            <span className="text-base font-medium text-white/80">{experience.company}</span>
+                        </div>
+                    </div>
+                    </div>
+                    
+                    {/* Arrow Icon */}
+                    <div className="flex h-10 w-10 -translate-y-2 translate-x-2 items-center justify-center rounded-full bg-white/5 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 text-primary border border-white/10">
+                    <ArrowRight className="h-5 w-5" />
+                    </div>
                 </div>
-              </div>
-            </div>
-            
-            {/* Arrow Icon */}
-            <div className="flex h-10 w-10 -translate-y-2 translate-x-2 items-center justify-center rounded-full bg-white/5 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 text-primary border border-white/10">
-              <ArrowRight className="h-5 w-5" />
-            </div>
-          </div>
 
-          {/* Date & Location Line */}
-          <div className="flex items-center gap-4 text-xs text-muted-foreground/80 font-medium">
-             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/5">
-                <Calendar className="w-3.5 h-3.5" />
-                <span>{experience.dates}</span>
-             </div>
-             {experience.location && (
-                <span>{experience.location}</span>
-             )}
-          </div>
+                {/* Date & Location Line */}
+                <div className="flex items-center gap-4 text-xs text-muted-foreground/80 font-medium">
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/5">
+                        <Calendar className="w-3.5 h-3.5" />
+                        <span>{experience.dates}</span>
+                    </div>
+                    {experience.location && (
+                        <span>{experience.location}</span>
+                    )}
+                </div>
 
-          {/* Snippet */}
-          <div className="pt-2">
-            <p className="text-base text-gray-300 line-clamp-3 leading-relaxed">
-              {experience.description || (experience.bullets.length > 0 ? experience.bullets[0].replace(/\[\[.*?\|(.*?)\]\]/g, '$1') : "")}
-            </p>
-          </div>
-          
-           {/* Skills */}
-           {experience.skills && (
-              <div className="flex flex-wrap gap-2 mt-auto pt-2">
-                  {experience.skills.slice(0, 4).map(skill => (
-                      <span key={skill} className="px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-lg bg-white/5 text-white/60 border border-white/5 backdrop-blur-md">
-                          {skill}
-                      </span>
-                  ))}
-                  {experience.skills.length > 4 && (
-                      <span className="px-3 py-1 text-xs text-white/40">+{experience.skills.length - 4}</span>
-                  )}
-              </div>
-           )}
+                {/* Snippet */}
+                <div className="pt-2">
+                    <p className="text-base text-gray-300 line-clamp-3 leading-relaxed">
+                    {experience.description || (experience.bullets.length > 0 ? experience.bullets[0].replace(/\[\[.*?\|(.*?)\]\]/g, '$1') : "")}
+                    </p>
+                </div>
+                
+                {/* Skills */}
+                {experience.skills && (
+                    <div className="flex flex-wrap gap-2 mt-auto pt-2">
+                        {experience.skills.slice(0, 4).map(skill => (
+                            <span key={skill} className="px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-lg bg-white/5 text-white/60 border border-white/5 backdrop-blur-md">
+                                {skill}
+                            </span>
+                        ))}
+                        {experience.skills.length > 4 && (
+                            <span className="px-3 py-1 text-xs text-white/40">+{experience.skills.length - 4}</span>
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
       </div>
     </motion.div>

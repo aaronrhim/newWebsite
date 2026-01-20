@@ -78,28 +78,53 @@ const EXPERIENCES: Experience[] = [
   {
     id: "ubc-arrc",
     role: "Software Member - Computer Vision & Telemetry",
-    company: "UBC ARRC",
+    company: "UBC Aerial Robotics and Rocketry Club (ARRC, Aerospace)",
     dates: "Sep. 2024 – Aug. 2025",
-    badge: "/logo/roverlogo.png",
+    badge: "/logo/arrc.png",
     location: "University of British Columbia",
     description: "Developed advanced computer vision models for aerial object detection and image denoising.",
     longDescription: "As a member of the UBC ARRC software team, I focused on improving the image quality and detection capabilities of our aerial drones. My work on an autoencoding denoiser and YOLOv8 transfer learning directly contributed to our 2nd place victory at the AEAC competition.",
     bullets: [
-      "Achieved [[red:exp-second:2.5|2nd place]] at the Aerial Evolution Association of Canada (AEAC) in 2025, demonstrating strong performance against top Canadian universities",
-      "Developed an autoencoding denoiser based on the RRDBNet architecture from the ESRGAN framework which enhanced image quality for the DL model below",
+      "Achieved [[red:exp-second:2.5|2nd place]] out of over 40 teams at the Aerial Evolution Association of Canada (AEAC) in 2025, demonstrating strong performance against top Canadian universities",
+      "Developed an autoencoding denoiser based on the RRDBNet architecture using the GAN framework which enhanced image quality for the DL/CV model below",
       "Applied transfer learning to the YOLOv8 object detection model to seclude IR emission in a live setting, improving detection accuracy by [[red:exp-perc:2.5|27%]]",
     ],
+    gallery: [
+        "/images/thumbnails/arrc.png",
+        "/images/arrc1.png",
+    ],
     skills: ["Computer Vision", "PyTorch", "YOLOv8", "Deep Learning"],
-    links: []
+    links: [
+      { url: "https://ubcoaerospace.ca/", type: 'website', label: 'Team Website' },
+      { url: "https://github.com/UBCO-Aerospace-Club", type: 'github', label: 'Team GitHub' },
+    ],
+    thumbnail: "/images/thumbnails/arrc.png"
   },
+];
+
+const EDUCATION: Experience[] = [
+  {
+    id: "ubc-bs",
+    role: "University of British Columbia (UBC)",
+    company: "Bachelor of Science in Computer Science",
+    dates: "Sep 2024 – Apr 2028",
+    badge: "/logo/ubclogo.png",
+    location: "Vancouver, BC",
+    description: "Pursuing a comprehensive curriculum in Computer Science, with specialized focus on machine learning, systems architecture, and algorithmic theory.",
+    bullets: [
+      "Relevant Coursework: Machine Learning, Data Structures & Algorithms (Intro & Intermediate), Computer Systems, Computer Hardware and Operating Systems, Linear Algebra (Honours), Discrete Mathematics"
+    ],
+    skills: ["Machine Learning", "Data Structures", "Algorithms", "Computer Systems", "Linear Algebra"],
+    thumbnail: "/images/thumbnails/ubc.png" 
+  }
 ];
 
 export default function ExperienceSection() {
   const [activeTab, setActiveTab] = useState("work");
   const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null);
 
-  // Filter experiences based on tab (currently all are work, added placeholder for education)
-  const items = activeTab === "work" ? EXPERIENCES : [];
+  // Filter experiences based on tab
+  const items = activeTab === "work" ? EXPERIENCES : EDUCATION;
 
   return (
     <Section id="experience">

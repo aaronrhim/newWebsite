@@ -36,9 +36,9 @@ export default function AboutPage() {
             <h2 className="text-2xl font-semibold text-white">Interests</h2>
             <div className="prose prose-invert text-white/70">
               <p>
-                My primary interests lie at the intersection of <RedText rewardId="about-robotics">robotics, sociology, and music</RedText>. Stemming from an english class
-                my dad, sister, and I taught to underprivileged kids in Vietnam, my fascination to how people work and how <RedText rewardId="about-technology">technology can improve 
-                our daily lives</RedText> has only grown stronger over time. I'm fascinated by the challenge of bringing digital intelligence into the physical world in ways that feel 
+                My primary interests lie at the intersection of <RedText rewardId="about-robotics-yup">robotics, sociology, and music</RedText>. Stemming from an english class
+                my dad, sister, and I taught to underprivileged kids in Vietnam, I've developed a fascination on how <RedText rewardId="about-technology">technology can improve 
+                our daily lives</RedText>. I'm intrigued by the challenge of bringing digital intelligence into the physical world in ways that feel 
                 natural and responsive.
               </p>
               <p className="mt-4">
