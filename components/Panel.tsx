@@ -1,0 +1,22 @@
+export default function Panel({
+  title,
+  rightSlot,
+  children,
+}: {
+  title: string;
+  rightSlot?: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="w-full max-w-5xl">
+      <div className="flex items-end justify-between">
+        <h2 className="text-white text-4xl font-semibold tracking-wide">{title}</h2>
+        {rightSlot ? <div className="text-white/60 text-sm">{rightSlot}</div> : null}
+      </div>
+
+      <div className="mt-8 rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur">
+        {children}
+      </div>
+    </div>
+  );
+}

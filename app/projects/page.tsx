@@ -1,5 +1,105 @@
-import Timeline from "./Timeline";
+"use client";
 
-export default function Page() {
-  return <Timeline />;
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useRouter, useSearchParams } from "next/navigation";
+import { PROJECTS } from "@/lib/projects";
+import ProjectCard, { Project } from "@/components/projects/ProjectCard";
+import ProjectModal from "@/components/projects/ProjectModal";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
+
+export default function ProjectsPage() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const slug = searchParams?.get("project");
+    if (!slug) {
+      setSelectedProject(null);
+      return;
+    }
+    const p = PROJECTS.find((x) => x.id === slug);
+    if (p) setSelectedProject(p as Project);
+  }, [searchParams]);
+
+  const handleCloseModal = () => {
+    const params = new URLSearchParams(window.location.search);
+    params.delete("project");
+    router.push(`/projects?${params.toString()}`, { scroll: false });
+    setSelectedProject(null);
+  };
+
+  const handleProjectClick = (project: Project) => {
+    const params = new URLSearchParams(window.location.search);
+    params.set("project", project.id);
+    router.push(`/projects?${params.toString()}`, { scroll: false });
+    setSelectedProject(project);
+  };
+
+  return (
+    <div className="pb-20">
+      <header className="mb-12">
+        <motion.h1 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="text-4xl md:text-6xl font-bold mb-4 glow-text"
+        >
+          Projects
+        </motion.h1>
+        <motion.p 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-muted-foreground text-lg max-w-2xl"
+        >
+          A collection of my work in robotics, software engineering, and artificial intelligence.
+        </motion.p>
+      </header>
+
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12"
+      >
+        {PROJECTS.map((project, index) => (
+          <motion.div key={project.id} variants={itemVariants} className="h-full">
+            <ProjectCard 
+              project={project as Project} 
+              index={index}
+              onClick={() => handleProjectClick(project as Project)} 
+            />
+          </motion.div>
+        ))}
+      </motion.div>
+
+      <ProjectModal 
+        project={selectedProject} 
+        onClose={handleCloseModal} 
+      />
+    </div>
+  );
 }
