@@ -1,8 +1,9 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { supabase } from "./supabase-client";
 
-// Small client-side persistence layer that talks to our app/api/redtext endpoints.
+// Small client-side persistence layer that talks to Supabase directly.
 // If Supabase isn't configured or the API fails, we fall back to localStorage first, then in-memory only.
 
 const STORAGE_KEY = "redtext_claims_v1";
@@ -63,22 +64,24 @@ export function MoneyProvider({ children }: { children: React.ReactNode }) {
 
     (async () => {
       try {
-        const res = await fetch("/api/redtext");
-        if (!res.ok) return;
-        const json = await res.json();
-        const serverClaims: Record<string, { claimed: boolean; amount?: number }> = json?.claims || {};
+        if (!supabase) return;
+        
+        const { data: serverClaimsData, error } = await supabase
+          .from("redtext_claims")
+          .select("reward_id, claimed, amount");
+          
+        if (error || !serverClaimsData) return;
 
         if (mounted) {
           const merged: Record<string, ClaimInfo> = { ...(claims || {}) };
 
-          Object.entries(serverClaims).forEach(([id, info]: any) => {
-            if (info?.claimed) {
-              const amt = typeof info?.amount === "number" ? info.amount : 0.25;
-              merged[id] = { claimed: true, amount: amt };
+          serverClaimsData.forEach((r: any) => {
+            if (r?.reward_id && r?.claimed) {
+              const amt = typeof r?.amount === "number" ? r.amount : 0.25;
+              merged[r.reward_id] = { claimed: true, amount: amt };
             }
           });
 
-          // if local had extra claimed entries not on server, keep them (offline-first)
           // write merged back to localStorage
           try {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
@@ -113,11 +116,16 @@ export function MoneyProvider({ children }: { children: React.ReactNode }) {
 
   const persistClaim = async (rewardId: string, amount?: number) => {
     try {
-      await fetch("/api/redtext", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ rewardId, amount }),
-      });
+      if (!supabase) return;
+      
+      await supabase
+        .from("redtext_claims")
+        .upsert({ 
+          reward_id: rewardId, 
+          claimed: true, 
+          amount: amount,
+          updated_at: new Date().toISOString() 
+        }, { onConflict: "reward_id" });
     } catch (e) {
       console.warn("Failed to persist redtext claim", e);
     }
