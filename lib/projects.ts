@@ -89,7 +89,7 @@ export const PROJECTS = [
     id: "lecruiter",
     title: "LeCruiter AI",
     description: "AI-powered platform enabling users to practice both behavioral and technical interviews, delivering generative prompts, realistic feedback, and automated scoring.",
-    longDescription: "I'm not ashamed to admit it. This was by far, the most fun I\"ve had in a hackathon. While it was hosted by AWS and was pretty competitive to get into, my team spontaneously decided that \"if we can't win, then we might as well have a good time.\" Designed to aid the interview prep process, LeCruiter AI is a platform for practicing both behavioral and technical interviews. We used AWS Bedrock primarily to power the whole thing and used standard full-stack tools like FastAPI, React, Typescript, and other tools to build the website.",
+    longDescription: "I'm not ashamed to admit it. This was by far, the most fun I've ever had in a hackathon. While it was hosted by AWS and was pretty competitive to get into, my team spontaneously decided that \"if we can't win, then we might as well have a good time.\" Designed to aid the interview prep process, LeCruiter AI is a platform for practicing both behavioral and technical interviews. We used AWS Bedrock primarily to power the whole thing and used standard full-stack tools like FastAPI, React, Typescript, and other tools to build the website.",
     features: ["AWS Bedrock for Generative AI", "FastAPI for backend services", "Tone & Sentiment Analysis for voice", "Automated Scoring Engine"],
     image: "/images/thumbnails/lecruiter.png",
     tags: ["React", "TailwindCSS", "AWS Bedrock", "Python", "FastAPI"],
@@ -110,6 +110,36 @@ export const PROJECTS = [
     extendingImages: [
       "/images/lecruiter.png",
       "/images/lecruiter1.png"
+    ],
+  },
+  {
+    id: "portfolio",
+    title: "Portfolio Website",
+    description: "The very website that you are looking at. Built with Next.js, Supabase, Framer Motion, React, and RESTful API.",
+    longDescription: "I built this website mainly to share my projects and experiences with others but also to show people more about myself and my personality. My main feature is the \"earnings\" gimmick which was created to incentivize users to read more of my website so that they can \"earn more money!\" Of course, this feature is still in development and I eventually want to incorporate some sort of spending mechanic but for now, I'm going to leave it as it is. The website is built with Next.js for server-side rendering, Supabase for client-side persistence, Framer Motion for animations, and React for the overall structure.",
+    features: ["Gamified currency system", "Next.js for server-side rendering", "Supabase for client-side persistence", "Framer Motion for animations", "RESTful API for backend services"],
+    image: "/images/thumbnails/websitethumbnail.png",
+    tags: ["React", "TailwindCSS", "Next.js", "Framer Motion", "TypeScript", "Supabase", "Prettier"],
+    links: [
+        {
+            url: "https://aaronrhim.github.io",
+            type: "website",
+            label: "Live Site"
+        },
+        {
+            url: "https://github.com/aaronrhim/aaronrhim.github.io",
+            type: "github",
+            label: "Source Code"
+        },
+    ],
+    highlight: false,
+    gallery: [
+      "/images/thumbnails/websitethumbnail.png",
+      "/images/portfolio1.png",
+    ],
+    extendingImages: [
+      "/images/thumbnails/websitethumbnail.png",
+      "/images/portfolio1.png"
     ],
   },
 ];
