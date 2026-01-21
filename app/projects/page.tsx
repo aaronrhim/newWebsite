@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { motion } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
 import { PROJECTS } from "@/lib/projects";
@@ -30,7 +30,7 @@ const itemVariants = {
   },
 };
 
-export default function ProjectsPage() {
+function ProjectsContent() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -101,5 +101,13 @@ export default function ProjectsPage() {
         onClose={handleCloseModal} 
       />
     </div>
+  );
+}
+
+export default function ProjectsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-transparent" />}>
+      <ProjectsContent />
+    </Suspense>
   );
 }
