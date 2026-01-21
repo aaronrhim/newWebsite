@@ -177,31 +177,39 @@ export const PROJECTS = [
   {
     id: "fact",
     title: "F.A.C.T",
-    description: "",
-    longDescription: "",
-    features: [""],
-    image: "/images/thumbnails/get-swole.png",
-    tags: ["React", "TailwindCSS", "Next.js", "Framer Motion", "TypeScript", "Supabase", "Prettier"],
+    description: "AR-powered virtual try-on platform that lets users visualize fabric patterns and clothing designs in real-time.",
+    longDescription: "F.A.C.T (Felix, Aaron, Charlotte, Tyra) was created by one computer scientist, two electrical engineers, and one mechie. Bonded by the memories we gained (being part of the Aerial Robotics and Rocketry Club at UBC), we really had no sense of fashion (as you can see from the UI on the right). I don't really know what drove us to do a fashion app but it was fun nonetheless. This app was built with MediaPipe to do real-time pose estimation and OpenCV to do the fabric pattern overlay. We also built a Flask-based web interface that used SocketIO to provide low-latency feedback to the user. And finally, I'd like to accredit all of the UI to Tyra, one of our electrical engineers, who designed the whole thing in Google Slides!",
+    features: [
+      "Real-time AR clothing overlay using MediaPipe",
+      "Dynamic fabric pattern swapping and tiling with OpenCV",
+      "Interactive pattern viewing portal and catalog",
+      "Flask-based web interface with SocketIO for low-latency feedback",
+      "Automated pattern scaling and positioning"
+    ],
+    image: "/images/thumbnails/factthumbnail.png",
+    tags: ["Python", "Flask", "OpenCV", "MediaPipe", "NumPy", "SocketIO", "JavaScript", "BeautifulSoup"],
     links: [
         {
-            url: "https://www.youtube.com/watch?v=qAPHT_JzxHk",
+            url: "https://www.youtube.com/watch?v=SJ7GUdQnaD4",
             type: "website",
             label: "Live Demo"
         },
         {
-            url: "https://github.com/aaronrhim/HackathonCS6",
+            url: "https://github.com/aaronrhim/F.A.C.T",
             type: "github",
             label: "Source Code"
         },
     ],
     highlight: false,
     gallery: [
-      "/images/thumbnails/get-swole.png",
-      "/images/portfolio1.png",
+      "/images/fact.png",
+      "/images/fact1.png",
+      "/images/fact2.png",
+      "/images/fact3.png"
     ],
     extendingImages: [
-      "/images/thumbnails/get-swole.png",
-      "/images/portfolio1.png"
+      "/images/fact2.png",
+      "/images/fact3.png"
     ],
   },
 ];
