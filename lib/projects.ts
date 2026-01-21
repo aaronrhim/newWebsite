@@ -142,4 +142,66 @@ export const PROJECTS = [
       "/images/portfolio1.png"
     ],
   },
+  {
+    id: "aigymtrainer",
+    title: "Get Swole",
+    description: "AI-powered gym trainer that analyzes your workout form in real-time to ensure every rep counts.",
+    longDescription: "This hackathon marked the beginning of my journey as a Computer Scientist. I was alone, hungry (lived off of chocolate for 48 hours), yet dedicated (somehow) to winning the hackathon. While it may have been small, I wanted to prove to myself that I can do anything. Going into this hackathon, I had never used Node.JS before (and chatGPT, still being in the GPT-4 phase, was the equivalent to almost useless). I also had never done a hackathon before, never used Vite before, or Next.js, FastAPI, SocketIO (a form of websockets that I randomly found), or had done any practical Computer Vision (of course I came from a background in AI so that's why I chose Comptuter Vision as my first project). Anyways, Get Swole took quite the toll on me and as you can see in the images to the right, I looked anything but clean. In the end, yes, through it all, I was able to secure 3rd-place and awards for Best Solo Hack and Best First Hack.",
+    features: [
+      "Real-Time Pose Estimation via MediaPipe",
+      "Custom ML model for Repetition Verification",
+      "Full-stack Integration (FastAPI & React)",
+      "Near Instant Visual Feedback on Form"
+    ],
+    image: "/images/thumbnails/get-swole.png",
+    tags: ["MediaPipe", "Python", "FastAPI", "React", "Next.js", "Machine Learning"],
+    links: [
+        {
+            url: "https://github.com/aaronrhim/HackathonCS6",
+            type: "github",
+            label: "Source Code"
+        },
+    ],
+    highlight: false,
+    gallery: [
+      "/images/getswole1.png",
+      "/images/getswole2.png",
+      "/images/getswole3.png",
+      "/images/getswole4.png"
+    ],
+    extendingImages: [
+      "/images/getswole1.png",
+      "/images/getswole2.png"
+    ],
+  },
+  {
+    id: "fact",
+    title: "F.A.C.T",
+    description: "",
+    longDescription: "",
+    features: [""],
+    image: "/images/thumbnails/get-swole.png",
+    tags: ["React", "TailwindCSS", "Next.js", "Framer Motion", "TypeScript", "Supabase", "Prettier"],
+    links: [
+        {
+            url: "https://www.youtube.com/watch?v=qAPHT_JzxHk",
+            type: "website",
+            label: "Live Demo"
+        },
+        {
+            url: "https://github.com/aaronrhim/HackathonCS6",
+            type: "github",
+            label: "Source Code"
+        },
+    ],
+    highlight: false,
+    gallery: [
+      "/images/thumbnails/get-swole.png",
+      "/images/portfolio1.png",
+    ],
+    extendingImages: [
+      "/images/thumbnails/get-swole.png",
+      "/images/portfolio1.png"
+    ],
+  },
 ];
