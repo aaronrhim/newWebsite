@@ -72,7 +72,7 @@ export default function Header() {
         hidden: { y: -120, opacity: 0 },
       }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className="fixed left-0 right-0 top-0 z-50 flex justify-center"
+      className="fixed left-0 right-0 top-0 z-[100] flex justify-center pl-40"
     >
       <div className="w-full max-w-5xl rounded-b-2xl rounded-t-none border-x border-b border-white/60 border-t-0 bg-[var(--background)]">
         <div className="flex items-center justify-between px-6 py-4 text-white">
@@ -83,7 +83,7 @@ export default function Header() {
                 <div className="text-base font-bold tracking-tight text-white/90">Balance</div>
                 <div className="flex items-center gap-0.5 font-mono text-xl font-bold tabular-nums tracking-tight text-white relative">
                    <span className="text-emerald-400 select-none">$</span>
-                   <AnimatedBalance value={money.balance} />
+                   <AnimatedBalance value={money.balance} className="text-lg" />
                    <RewardPopup />
                 </div>
               </div>

@@ -15,12 +15,12 @@ export interface Experience {
   role: string;
   company: string;
   dates: string;
-  description?: string; // Short summary
-  longDescription?: string; // Detailed story
-  badge: string; // Logo/Icon
-  thumbnail?: string; // Larger image for card background/preview
-  extendingImages?: string[]; // Images that "pop out" of the card
-  bullets: string[]; // Key achievements (supports RedText syntax)
+  description?: string;
+  longDescription?: string;
+  badge: string;
+  thumbnail?: string;
+  extendingImages?: string[];
+  bullets: string[];
   gallery?: string[];
   skills?: string[];
   links?: ExperienceLink[];
@@ -48,11 +48,6 @@ export default function ExperienceCard({ experience, onClick, index }: Experienc
     >
       {/* Extending Images - Distributed Left and Right */}
       {experience.extendingImages && experience.extendingImages.map((src, idx) => {
-        // Distribute images: 
-        // 0 -> Left, 1 -> Right, 2 -> Left, ...
-        // We use isEven (card index) to maybe flip the starting side if we wanted zig-zag, 
-        // but user asked for "one on left and another on right".
-        // Let's stick to a consistent pattern: Index 0 always left, Index 1 always right for THIS card.
         
         const isLeft = idx % 2 === 0;
         

@@ -10,9 +10,23 @@ import { motion } from "framer-motion";
 function Gallery({ images }: { images: string[] }) {
   // If only one image, simply display it static
   if (images.length <= 1) {
+    const src = images[0];
+    const isVideo = src?.endsWith('.mp4');
+    
     return (
       <div className="w-full h-full relative">
-         <img src={images[0]} alt="Gallery" className="w-full h-full object-cover" />
+         {isVideo ? (
+            <video 
+              src={src} 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
+              className="w-full h-full object-cover object-[50%_25%]" 
+            />
+         ) : (
+            <img src={src} alt="Gallery" className="w-full h-full object-cover" />
+         )}
          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
       </div>
     );
@@ -20,11 +34,25 @@ function Gallery({ images }: { images: string[] }) {
 
   return (
     <div className="w-full h-full overflow-y-auto p-4 space-y-4 scrollbar-hide">
-        {images.map((src, i) => (
-          <div key={i} className="w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-white/10 shrink-0">
-            <img loading="lazy" src={src} alt={`Gallery ${i}`} className="w-full h-full object-cover" />
-          </div>
-        ))}
+        {images.map((src, i) => {
+          const isVideo = src.endsWith('.mp4');
+          return (
+            <div key={i} className="w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-white/10 shrink-0">
+              {isVideo ? (
+                <video 
+                  src={src} 
+                  autoPlay 
+                  loop 
+                  muted 
+                  playsInline 
+                  className="w-full h-full object-cover object-[50%_25%]" 
+                />
+              ) : (
+                <img loading="lazy" src={src} alt={`Gallery ${i}`} className="w-full h-full object-cover" />
+              )}
+            </div>
+          );
+        })}
     </div>
   );
 }

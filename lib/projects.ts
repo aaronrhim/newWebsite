@@ -89,8 +89,8 @@ export const PROJECTS = [
     id: "lecruiter",
     title: "LeCruiter AI",
     description: "AI-powered platform enabling users to practice both behavioral and technical interviews, delivering generative prompts, realistic feedback, and automated scoring.",
-    longDescription: ".",
-    features: [""],
+    longDescription: "I'm not ashamed to admit it. This was by far, the most fun I\"ve had in a hackathon. While it was hosted by AWS and was pretty competitive to get into, my team spontaneously decided that \"if we can't win, then we might as well have a good time.\" Designed to aid the interview prep process, LeCruiter AI is a platform for practicing both behavioral and technical interviews. We used AWS Bedrock primarily to power the whole thing and used standard full-stack tools like FastAPI, React, Typescript, and other tools to build the website.",
+    features: ["AWS Bedrock for Generative AI", "FastAPI for backend services", "Tone & Sentiment Analysis for voice", "Automated Scoring Engine"],
     image: "/images/thumbnails/lecruiter.png",
     tags: ["React", "TailwindCSS", "AWS Bedrock", "Python", "FastAPI"],
     links: [
@@ -102,10 +102,14 @@ export const PROJECTS = [
     ],
     highlight: false,
     gallery: [
-      "/images/cpsc210.png"
+      "/images/lecruiter.png",
+      "/images/lecruiter1.png",
+      "/images/lecruiter2.png",
+      "/images/lecruiter3.png"
     ],
     extendingImages: [
-      "/images/cpsc210.png"
+      "/images/lecruiter.png",
+      "/images/lecruiter1.png"
     ],
   },
 ];
